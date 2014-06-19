@@ -2,16 +2,24 @@ package com.scoreboard.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import com.scoreboard.managers.MatchManager;
 
 public class VentanaPrincipal extends JFrame 
 {	
@@ -86,7 +94,7 @@ public class VentanaPrincipal extends JFrame
 		//add(plSet4Lbl);
 		//add(plSet5Lbl);
 	
-		//Segunda Fila
+		//Segunda Fila	
 		JButton btnJugadorUno = new JButton("Punto");
 		plJugadorUno = new JPanel();
 		plPuntosJugadorUno = new JPanel();
@@ -117,7 +125,7 @@ public class VentanaPrincipal extends JFrame
 		
 		plPuntosJugadorUno.add(puntosJugadorUno);	
 		plJugadorUno.add(lblJugadorUno);
-		plJugadorUno.add(btnJugadorUno);
+		plJugadorUno.add(btnJugadorUno);		
 		plGameJugadorUno.add(gamesJugadorUno);
 		plSet1JugadorUno.add(set1JugadorUno);
 		plSet2JugadorUno.add(set2JugadorUno);
@@ -182,26 +190,32 @@ public class VentanaPrincipal extends JFrame
 		//add(plSet4JugadorDos);
 		//add(plSet5JugadorDos);
 		
-		
-		
 				
-//		JButton btnJugadorUno = new JButton("Coco");
-//		add(btnJugadorUno);
-//		JButton btnJugadorDos = new JButton("Pepe");
-//		add(btnJugadorDos);
+		btnJugadorUno.addActionListener(new ActionListener()
+		{			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MatchManager mm = new MatchManager();
+				mm.addPoint(true);
+				actualizarPartido();
+			}
+		});
 		
-//		btnJugadorUno.addActionListener(new ActionListener()
-//		{			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				anotarPuntoJugadorUno();
-//			}
-//		});
+		btnJugadorDos.addActionListener(new ActionListener()
+		{			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MatchManager mm = new MatchManager();
+				mm.newMatch("C:\\", 3);
+				mm.addPoint(false);
+				actualizarPartido();
+			}
+		});	
 	}
 	
-	private void anotarPuntoJugadorUno()
+	private void actualizarPartido()
 	{		
-		//lblPuntos.setText("1 - 0");
+		
 	}
 
 }

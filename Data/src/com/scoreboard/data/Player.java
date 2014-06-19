@@ -1,11 +1,12 @@
+package com.scoreboard.data;
 
-public class Jugador 
+public class Player 
 {
 	private String nombre;
 	private String rutaFoto;
 	private String nacionalidad;	
 
-	public Jugador()
+	public Player()
 	{
 		
 	}

@@ -46,6 +46,7 @@ public class Match extends PartialScore{
 			sets[i] = new Set(false);
 		if(gameLength == 5)
 			sets[4] = new Set(true);
+		currentSet = sets[0];		
 	}
 	
 	public Boolean playerWon(Boolean isPlayerA)

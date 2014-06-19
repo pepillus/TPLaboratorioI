@@ -17,7 +17,7 @@ public class Game extends PartialScore {
 
 	public Boolean playerWon(Boolean isPlayerA) {
 		if ((getScoreByPlayer(isPlayerA) > (getScoreByPlayer(!isPlayerA) + 1))
-				&& (getScoreByPlayer(isPlayerA) > 4)) {
+				&& (getScoreByPlayer(isPlayerA) > 3)) {
 			if (isTieBreak) {
 				if (getScoreByPlayer(isPlayerA) > 5)
 					return true;

@@ -3,7 +3,6 @@ package com.scoreboard.managers;
 import java.util.ArrayList;
 
 import com.scoreboard.data.*;
-import com.scoreboard.persistence.MatchHelper;
 
 public class MatchManager {
 	private Match match;
@@ -91,13 +90,13 @@ public class MatchManager {
 
 	public void saveMatch()
 	{
-		try {
-			MatchHelper.write(match, "foo.xml");
-			Match m2 = MatchHelper.read("foo.xml");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			MatchHelper.write(match, "foo.xml");
+//			Match m2 = MatchHelper.read("foo.xml");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		// the output : Foobar
 	}

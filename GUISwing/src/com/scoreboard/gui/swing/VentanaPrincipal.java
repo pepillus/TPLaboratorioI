@@ -55,6 +55,7 @@ public class VentanaPrincipal extends JFrame
 		setSize(783, 223);
 		setTitle("Tenis");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setLayout(new GridLayout(3,6));	
 		
 		//Primera Fila
@@ -195,9 +196,9 @@ public class VentanaPrincipal extends JFrame
 		{			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MatchManager mm = new MatchManager();
-				mm.addPoint(true);
-				actualizarPartido();
+//				MatchManager mm = new MatchManager();
+//				mm.addPoint(true);
+//				actualizarPartido();
 			}
 		});
 		
@@ -205,10 +206,10 @@ public class VentanaPrincipal extends JFrame
 		{			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MatchManager mm = new MatchManager();
-				mm.newMatch("C:\\", 3);
-				mm.addPoint(false);
-				actualizarPartido();
+//				MatchManager mm = new MatchManager();
+//				mm.newMatch("C:\\", 3);
+//				mm.addPoint(false);
+//				actualizarPartido();
 			}
 		});	
 	}

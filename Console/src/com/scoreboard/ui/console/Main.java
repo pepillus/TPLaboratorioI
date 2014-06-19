@@ -25,7 +25,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Board board = new Board();
-		System.out.println("test");
+		//System.out.println("test");
 		mm.newMatch("asd", 5);
 		
 		char c = 0; 

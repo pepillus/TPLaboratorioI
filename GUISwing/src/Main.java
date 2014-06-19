@@ -4,7 +4,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import ventanas.VentanaPrincipal;
+import com.scoreboard.gui.swing.VentanaPrincipal;
+
 
 
 public class Main {

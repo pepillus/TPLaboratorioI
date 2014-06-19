@@ -3,12 +3,13 @@ package com.scoreboard.managers;
 import java.util.ArrayList;
 
 import com.scoreboard.data.*;
+import com.scoreboard.persistence.MatchHelper;
 
 public class MatchManager {
 	private Match match;
 	private Player playerA;
 	private Player playerB;
-	
+
 	public Match getMatch() {
 		return match;
 	}
@@ -33,68 +34,71 @@ public class MatchManager {
 		this.playerB = playerB;
 	}
 
-	public MatchManager()
-	{
+	public MatchManager() {
 	}
-	
-	public void loadMatch()
-	{
+
+	public void loadMatch() {
 		// match = try FileLoader.getMatch();
 		// throw error message to GUI
 	}
-	
-	public void newMatch(String playersFile, int gameLength)
-	{
-		//try FileLoader.getPlayer(playersFile);
+
+	public void newMatch(String playersFile, int gameLength) {
+		// try FileLoader.getPlayer(playersFile);
 		match = new Match(gameLength);
 	}
-	
-	public void addPoint(Boolean isPlayerA)
-	{
+
+	public void addPoint(Boolean isPlayerA) {
 		updateGame(isPlayerA);
 	}
-	
-	public Boolean hasWinner()
-	{
+
+	public Boolean hasWinner() {
 		return match.getIsFinished();
 	}
-	
-	public Player getWinner()
-	{
-		if(!match.getIsFinished())
+
+	public Player getWinner() {
+		if (!match.getIsFinished())
 			return null;
-		if(match.getScoreA() > match.getScoreB())
+		if (match.getScoreA() > match.getScoreB())
 			return playerA;
 		else
 			return playerB;
 	}
-	
-	public ArrayList<String[]> getCurrentScore()
-	{
+
+	public ArrayList<String[]> getCurrentScore() {
 		ArrayList<String[]> scores = new ArrayList<String[]>();
 		scores.add(match.getScore());
-		for(Set s : match.getSets())
+		for (Set s : match.getSets())
 			scores.add(s.getScore());
 		scores.add(match.getCurrentSet().getCurrentGame().getScore());
 		return scores;
 	}
-	
-	private void updateGame(Boolean isPlayerA)
-	{
+
+	private void updateGame(Boolean isPlayerA) {
 		match.getCurrentSet().getCurrentGame().addPoint(isPlayerA);
-		if(match.getCurrentSet().getCurrentGame().playerWon(isPlayerA))
+		if (match.getCurrentSet().getCurrentGame().playerWon(isPlayerA))
 			updateSet(isPlayerA);
 	}
-	
-	private void updateSet(Boolean isPlayerA)
-	{
+
+	private void updateSet(Boolean isPlayerA) {
 		match.getCurrentSet().addPoint(isPlayerA);
-		if(match.getCurrentSet().playerWon(isPlayerA))
+		if (match.getCurrentSet().playerWon(isPlayerA))
 			updateMatch(isPlayerA);
 	}
-	
-	private void updateMatch(Boolean isPlayerA)
-	{
+
+	private void updateMatch(Boolean isPlayerA) {
 		match.addPoint(isPlayerA);
+	}
+
+	public void saveMatch()
+	{
+		try {
+			MatchHelper.write(match, "foo.xml");
+			Match m2 = MatchHelper.read("foo.xml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// the output : Foobar
 	}
 }

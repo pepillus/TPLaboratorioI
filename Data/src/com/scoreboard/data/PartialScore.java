@@ -1,5 +1,6 @@
 package com.scoreboard.data;
 
+
 public abstract class PartialScore {
 	private int scoreA;
 	private int scoreB;
@@ -42,4 +43,5 @@ public abstract class PartialScore {
 	{
 		return new String[] { String.valueOf(scoreA), String.valueOf(scoreB) };
 	}
+	
 }

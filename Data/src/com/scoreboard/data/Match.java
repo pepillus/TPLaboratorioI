@@ -1,6 +1,9 @@
 package com.scoreboard.data;
 
-public class Match extends PartialScore{
+import com.scoreboard.interfaces.ISavable;
+import com.scoreboard.utils.exceptions.ParseFileException;
+
+public class Match extends PartialScore implements ISavable {
 	private int gameLength;
 	private Boolean isFinished;
 	private Set[] sets;
@@ -46,7 +49,7 @@ public class Match extends PartialScore{
 			sets[i] = new Set(false);
 		if(gameLength == 5)
 			sets[4] = new Set(true);
-		currentSet = sets[0];		
+		currentSet = sets[0];
 	}
 	
 	public Boolean playerWon(Boolean isPlayerA)
@@ -64,5 +67,36 @@ public class Match extends PartialScore{
 			isFinished = true;
 		else
 			currentSet = sets[getScoreByPlayer(isPlayerA) + getScoreByPlayer(!isPlayerA)];
+	}
+	
+	@Override
+	public String toFile() {
+		return String.valueOf(this.getScoreA()) + ";" +
+				String.valueOf(this.getScoreB()) + ";" +
+				String.valueOf(this.getGameLength());
+	}
+
+	@Override
+	public void fromFile(String data) throws ParseFileException {
+		String[] str = data.split(";");
+		if(str.length == 3)
+		{
+			try
+			{
+				setScoreA(Integer.parseInt(str[0]));
+				setScoreB(Integer.parseInt(str[1]));
+				setGameLength(Integer.parseInt(str[2]));
+			}
+			catch(Exception ex)
+			{
+				ParseFileException pe = new ParseFileException("Error al leer datos del Match", ex);
+				throw pe;
+			}
+		}
+		else
+		{
+			ParseFileException pe = new ParseFileException("Error al leer datos del Match");
+			throw pe;
+		}
 	}
 }

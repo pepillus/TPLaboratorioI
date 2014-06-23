@@ -2,13 +2,13 @@ package com.scoreboard.managers;
 
 import java.util.ArrayList;
 
-import com.scoreboard.data.*;
+import com.scoreboard.business.entities.*;
 
 public class MatchManager {
 	private Match match;
 	private Player playerA;
 	private Player playerB;
-
+	
 	public Match getMatch() {
 		return match;
 	}

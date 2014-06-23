@@ -1,4 +1,4 @@
-package com.scoreboard.data;
+package com.scoreboard.business.entities;
 
 import com.scoreboard.interfaces.ISavable;
 import com.scoreboard.utils.exceptions.ParseFileException;
@@ -63,7 +63,8 @@ public class Match extends PartialScore implements ISavable {
 	public void addPoint(Boolean isPlayerA)
 	{
 		super.addPoint(isPlayerA);
-		if((getScoreByPlayer(isPlayerA) + getScoreByPlayer(!isPlayerA)) == gameLength)
+		//if((getScoreByPlayer(isPlayerA) + getScoreByPlayer(!isPlayerA)) == gameLength)
+		if(getScoreByPlayer(isPlayerA) > (gameLength - getScoreByPlayer(isPlayerA)))
 			isFinished = true;
 		else
 			currentSet = sets[getScoreByPlayer(isPlayerA) + getScoreByPlayer(!isPlayerA)];

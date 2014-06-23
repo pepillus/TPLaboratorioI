@@ -1,4 +1,4 @@
-package com.scoreboard.data;
+package com.scoreboard.business.entities;
 
 import com.scoreboard.interfaces.ISavable;
 import com.scoreboard.utils.exceptions.ParseFileException;

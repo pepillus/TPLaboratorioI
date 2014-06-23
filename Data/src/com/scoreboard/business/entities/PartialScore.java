@@ -1,4 +1,4 @@
-package com.scoreboard.data;
+package com.scoreboard.business.entities;
 
 
 public abstract class PartialScore {

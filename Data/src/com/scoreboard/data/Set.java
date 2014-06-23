@@ -29,6 +29,8 @@ public class Set extends PartialScore implements ISavable {
 	}
 
 	public Boolean playerWon(Boolean isPlayerA) {
+		if(getScoreByPlayer(isPlayerA) > 6 && !isFifth)
+			return true;
 		if ((getScoreByPlayer(isPlayerA) > 5)
 				&& (getScoreByPlayer(isPlayerA) > (getScoreByPlayer(!isPlayerA) + 1)))
 			return true;

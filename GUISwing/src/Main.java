@@ -15,6 +15,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		VentanaPrincipal v = new VentanaPrincipal(5);		
 		v.setVisible(true);
 		

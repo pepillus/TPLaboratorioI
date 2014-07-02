@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -26,7 +27,8 @@ public class VentanaPrincipal extends JFrame
 {	
 	MatchManager mma;
 	private int sets;
-	private JPanel plJugadoresLbl,
+	private JPanel plJugadoresLblFoto,
+					plJugadoresLblDatos,
 					plGamesLbl,
 					plMatchLbl,
 					plSet1Lbl,
@@ -34,6 +36,7 @@ public class VentanaPrincipal extends JFrame
 					plSet3Lbl,
 					plSet4Lbl,
 					plSet5Lbl,
+					plJugadorUnoFoto,
 					plJugadorUnoLbl,
 					plJugadorDosLbl,
 					plJugadorUno,
@@ -43,7 +46,8 @@ public class VentanaPrincipal extends JFrame
 					plSet2JugadorUno,
 					plSet3JugadorUno,
 					plSet4JugadorUno,
-					plSet5JugadorUno,			
+					plSet5JugadorUno,
+					plJugadorDosFoto,
 					plJugadorDos,
 					plGamesJugadorDos,
 					plMatchJugadorDos,					
@@ -54,6 +58,7 @@ public class VentanaPrincipal extends JFrame
 					plSet5JugadorDos;
 	
 	private JLabel lblJugadorUno,
+					lblFotoJugadorUno,
 					gamesJugadorUno,
 					matchJugadorUno,
 					set1JugadorUno,
@@ -61,6 +66,7 @@ public class VentanaPrincipal extends JFrame
 					set3JugadorUno,
 					set4JugadorUno,
 					set5JugadorUno,
+					lblFotoJugadorDos,
 					lblJugadorDos,
 					gamesJugadorDos,
 					matchJugadorDos,
@@ -68,25 +74,39 @@ public class VentanaPrincipal extends JFrame
 					set2JugadorDos,
 					set3JugadorDos,
 					set4JugadorDos,
-					set5JugadorDos;	
+					set5JugadorDos,
+					saqueJugadorUno,
+					saqueJugadorDos;	
 	
 	
 	public VentanaPrincipal(int sets)//Le pasarias cantidad de sets para settear el layout
 	{
-		this.sets = sets;	
+		ImageIcon paisJugadorUno = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\ar.png");
+		ImageIcon paisJugadorDos = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\cl.png");
+		ImageIcon saque = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\sport-tennis-icon.png");
+		ImageIcon fotoJugadorUno = new ImageIcon("C:\\Users\\mperez\\Desktop\\Person-Male-Light-icon.png");
+		ImageIcon fotoJugadorDos = new ImageIcon("C:\\Users\\mperez\\Desktop\\Age-Child-Male-Dark-icon.png");
+		
+	    JLabel banderaJugadorUno = new JLabel(paisJugadorUno);
+	    JLabel banderaJugadorDos = new JLabel(paisJugadorDos);
+	    saqueJugadorUno = new JLabel(saque);
+	    saqueJugadorDos = new JLabel(saque);
+	    
+	    this.sets = sets;	
 		mma = new MatchManager();
 		mma.newMatch("", sets);
-		setSize(783, 223);
+		setSize(1327, 223);
 		setTitle("Tenis");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		if(sets == 3)
-			setLayout(new GridLayout(3,6));
+			setLayout(new GridLayout(3,7));
 		else
-			setLayout(new GridLayout(3,8));
+			setLayout(new GridLayout(3,9));
 		
 		//Primera Fila
-		plJugadoresLbl = new JPanel();
+		plJugadoresLblFoto = new JPanel();
+		plJugadoresLblDatos = new JPanel();
 		plGamesLbl = new JPanel();
 		plMatchLbl = new JPanel();
 		plSet1Lbl = new JPanel();
@@ -98,7 +118,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5Lbl = new JPanel();
 		}
 		
-		plJugadoresLbl.setBorder(BorderFactory.createLineBorder(Color.black));
+		
 		plGamesLbl.setBorder(BorderFactory.createLineBorder(Color.black));
 		plMatchLbl.setBorder(BorderFactory.createLineBorder(Color.black));
 		plSet1Lbl.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -110,7 +130,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5Lbl.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 		
-		plJugadoresLbl.add(new JLabel("Jugadores"));	
+		plJugadoresLblFoto.add(new JLabel("Jugadores"));		
 		plGamesLbl.add(new JLabel("Game"));
 		plMatchLbl.add(new JLabel("Match"));
 		plSet1Lbl.add(new JLabel("Set 1"));
@@ -122,7 +142,8 @@ public class VentanaPrincipal extends JFrame
 			plSet5Lbl.add(new JLabel("Set 5"));
 		}
 	
-		add(plJugadoresLbl);		
+		add(plJugadoresLblFoto);
+		add(plJugadoresLblDatos);
 		add(plGamesLbl);
 		add(plMatchLbl);
 		add(plSet1Lbl);
@@ -134,8 +155,9 @@ public class VentanaPrincipal extends JFrame
 			add(plSet5Lbl);
 		}
 	
-		//Segunda Fila	
+		//Segunda Fila(Datos jugador 1)	
 		JButton btnJugadorUno = new JButton("Punto");
+		plJugadorUnoFoto = new JPanel();
 		plJugadorUno = new JPanel();
 		plGamesJugadorUno = new JPanel();
 		plMatchJugadorUno = new JPanel();
@@ -148,6 +170,8 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorUno = new JPanel();
 		}
 		
+		plJugadorUnoFoto.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
+																	BorderFactory.createEmptyBorder(1, 1, 1, 0)));
 		plJugadorUno.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		plGamesJugadorUno.setBorder(BorderFactory.createLineBorder(Color.black));
 		plMatchJugadorUno.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -160,6 +184,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorUno.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 		
+		lblFotoJugadorUno = new JLabel(fotoJugadorUno);
 		lblJugadorUno = new JLabel("Pepe");
 		gamesJugadorUno = new JLabel("0");
 		matchJugadorUno = new JLabel("0");
@@ -172,9 +197,13 @@ public class VentanaPrincipal extends JFrame
 			set5JugadorUno = new JLabel("0");
 		}
 		
+		plJugadorUnoFoto.add(lblFotoJugadorUno);
 		plGamesJugadorUno.add(gamesJugadorUno);	
+		plJugadorUno.add(banderaJugadorUno);
 		plJugadorUno.add(lblJugadorUno);
 		plJugadorUno.add(btnJugadorUno);		
+		plJugadorUno.add(saqueJugadorUno);
+		saqueJugadorDos.setVisible(false);
 		plMatchJugadorUno.add(matchJugadorUno);
 		plSet1JugadorUno.add(set1JugadorUno);
 		plSet2JugadorUno.add(set2JugadorUno);
@@ -185,6 +214,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorUno.add(set5JugadorUno);
 		}
 		
+		add(plJugadorUnoFoto);
 		add(plJugadorUno);
 		add(plGamesJugadorUno);
 		add(plMatchJugadorUno);
@@ -197,8 +227,9 @@ public class VentanaPrincipal extends JFrame
 			add(plSet5JugadorUno);
 		}
 		
-		//Tercera Fila
+		//Tercera Fila (datos jugador 2)
 		JButton btnJugadorDos = new JButton("Punto");
+		plJugadorDosFoto = new JPanel();
 		plJugadorDos = new JPanel();
 		plGamesJugadorDos = new JPanel();
 		plMatchJugadorDos = new JPanel();
@@ -211,6 +242,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorDos = new JPanel();
 		}
 		
+		plJugadorDosFoto.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		plJugadorDos.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		plGamesJugadorDos.setBorder(BorderFactory.createLineBorder(Color.black));
 		plMatchJugadorDos.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -223,6 +255,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorDos.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 		
+		lblFotoJugadorDos = new JLabel(fotoJugadorDos);
 		lblJugadorDos = new JLabel("Coco");
 		gamesJugadorDos = new JLabel("0");
 		matchJugadorDos = new JLabel("0");
@@ -235,9 +268,12 @@ public class VentanaPrincipal extends JFrame
 			set5JugadorDos = new JLabel("0");
 		}
 		
+		plJugadorDosFoto.add(lblFotoJugadorDos);
 		plGamesJugadorDos.add(gamesJugadorDos);
+		plJugadorDos.add(banderaJugadorDos);
 		plJugadorDos.add(lblJugadorDos);
 		plJugadorDos.add(btnJugadorDos);
+		plJugadorDos.add(saqueJugadorDos);
 		plMatchJugadorDos.add(matchJugadorDos);
 		plSet1JugadorDos.add(set1JugadorDos);
 		plSet2JugadorDos.add(set2JugadorDos);
@@ -248,6 +284,7 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorDos.add(set5JugadorDos);
 		}
 		
+		add(plJugadorDosFoto);
 		add(plJugadorDos);
 		add(plGamesJugadorDos);
 		add(plMatchJugadorDos);
@@ -258,8 +295,7 @@ public class VentanaPrincipal extends JFrame
 		{
 			add(plSet4JugadorDos);
 			add(plSet5JugadorDos);
-		}
-		
+		}		
 				
 		btnJugadorUno.addActionListener(new ActionListener()
 		{			
@@ -267,8 +303,8 @@ public class VentanaPrincipal extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 				mma.addPoint(true);
 				actualizarPartido(mma.getCurrentScore());
-				if(mma.hasWinner())
-					System.out.println("GANO "+mma.getWinner().getNombre());
+//				if(mma.hasWinner())
+//					System.out.println("GANO "+mma.getWinner().getNombre());
 			}
 		});
 		
@@ -278,8 +314,8 @@ public class VentanaPrincipal extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 				mma.addPoint(false);
 				actualizarPartido(mma.getCurrentScore());
-				if(mma.hasWinner())
-					System.out.println("GANO "+mma.getWinner().getNombre());
+//				if(mma.hasWinner())
+//					System.out.println("GANO "+mma.getWinner().getNombre());
 				 
 			}
 		});	
@@ -316,7 +352,20 @@ public class VentanaPrincipal extends JFrame
 			set2JugadorDos.setText(puntajes.get(2)[1].toString());		
 			set3JugadorUno.setText(puntajes.get(3)[0].toString());
 			set3JugadorDos.setText(puntajes.get(3)[1].toString());
-		}
+		}		
 		
+		if(gamesJugadorUno.getText().equals("0") && gamesJugadorDos.getText().equals("0"))
+		{			
+			if(saqueJugadorUno.isVisible())
+			{
+				saqueJugadorUno.setVisible(false);
+				saqueJugadorDos.setVisible(true);
+			}
+			else
+			{
+				saqueJugadorUno.setVisible(true);
+				saqueJugadorDos.setVisible(false);
+			}
+		}
 	}
 }

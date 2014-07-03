@@ -3,7 +3,9 @@ package com.scoreboard.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -27,6 +29,9 @@ public class VentanaPrincipal extends JFrame
 {	
 	MatchManager mma;
 	private int sets;
+	
+	private JPanel ventana;
+	
 	private JPanel plJugadoresLblFoto,
 					plJugadoresLblDatos,
 					plGamesLbl,
@@ -81,6 +86,9 @@ public class VentanaPrincipal extends JFrame
 	
 	public VentanaPrincipal(int sets)//Le pasarias cantidad de sets para settear el layout
 	{
+		
+		ventana = new JPanel();
+		
 		ImageIcon paisJugadorUno = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\ar.png");
 		ImageIcon paisJugadorDos = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\cl.png");
 		ImageIcon saque = new ImageIcon("C:\\Users\\mperez\\Desktop\\famfamfam_flag_icons\\icons\\png\\sport-tennis-icon.png");
@@ -94,15 +102,15 @@ public class VentanaPrincipal extends JFrame
 	    
 	    this.sets = sets;	
 		mma = new MatchManager();
-		mma.newMatch("", sets);
-		setSize(1327, 223);
-		setTitle("Tenis");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
+		mma.newMatch("", sets);		
+		ventana.setSize(1327, 223);
+//		setTitle("Tenis");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setLocationRelativeTo(null);
 		if(sets == 3)
-			setLayout(new GridLayout(3,7));
+			ventana.setLayout(new GridLayout(3,7));
 		else
-			setLayout(new GridLayout(3,9));
+			ventana.setLayout(new GridLayout(3,9));
 		
 		//Primera Fila
 		plJugadoresLblFoto = new JPanel();
@@ -142,17 +150,17 @@ public class VentanaPrincipal extends JFrame
 			plSet5Lbl.add(new JLabel("Set 5"));
 		}
 	
-		add(plJugadoresLblFoto);
-		add(plJugadoresLblDatos);
-		add(plGamesLbl);
-		add(plMatchLbl);
-		add(plSet1Lbl);
-		add(plSet2Lbl);
-		add(plSet3Lbl);
+		ventana.add(plJugadoresLblFoto);
+		ventana.add(plJugadoresLblDatos);
+		ventana.add(plGamesLbl);
+		ventana.add(plMatchLbl);
+		ventana.add(plSet1Lbl);
+		ventana.add(plSet2Lbl);
+		ventana.add(plSet3Lbl);
 		if(sets > 3)
 		{
-			add(plSet4Lbl);
-			add(plSet5Lbl);
+			ventana.add(plSet4Lbl);
+			ventana.add(plSet5Lbl);
 		}
 	
 		//Segunda Fila(Datos jugador 1)	
@@ -214,17 +222,17 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorUno.add(set5JugadorUno);
 		}
 		
-		add(plJugadorUnoFoto);
-		add(plJugadorUno);
-		add(plGamesJugadorUno);
-		add(plMatchJugadorUno);
-		add(plSet1JugadorUno);
-		add(plSet2JugadorUno);
-		add(plSet3JugadorUno);
+		ventana.add(plJugadorUnoFoto);
+		ventana.add(plJugadorUno);
+		ventana.add(plGamesJugadorUno);
+		ventana.add(plMatchJugadorUno);
+		ventana.add(plSet1JugadorUno);
+		ventana.add(plSet2JugadorUno);
+		ventana.add(plSet3JugadorUno);
 		if(sets > 3)
 		{
-			add(plSet4JugadorUno);
-			add(plSet5JugadorUno);
+			ventana.add(plSet4JugadorUno);
+			ventana.add(plSet5JugadorUno);
 		}
 		
 		//Tercera Fila (datos jugador 2)
@@ -284,17 +292,17 @@ public class VentanaPrincipal extends JFrame
 			plSet5JugadorDos.add(set5JugadorDos);
 		}
 		
-		add(plJugadorDosFoto);
-		add(plJugadorDos);
-		add(plGamesJugadorDos);
-		add(plMatchJugadorDos);
-		add(plSet1JugadorDos);
-		add(plSet2JugadorDos);
-		add(plSet3JugadorDos);
+		ventana.add(plJugadorDosFoto);
+		ventana.add(plJugadorDos);
+		ventana.add(plGamesJugadorDos);
+		ventana.add(plMatchJugadorDos);
+		ventana.add(plSet1JugadorDos);
+		ventana.add(plSet2JugadorDos);
+		ventana.add(plSet3JugadorDos);
 		if(sets > 3)
 		{
-			add(plSet4JugadorDos);
-			add(plSet5JugadorDos);
+			ventana.add(plSet4JugadorDos);
+			ventana.add(plSet5JugadorDos);
 		}		
 				
 		btnJugadorUno.addActionListener(new ActionListener()
@@ -303,6 +311,8 @@ public class VentanaPrincipal extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 				mma.addPoint(true);
 				actualizarPartido(mma.getCurrentScore());
+//				System.out.println(getSize());
+//				System.out.println(getLocationOnScreen());
 //				if(mma.hasWinner())
 //					System.out.println("GANO "+mma.getWinner().getNombre());
 			}
@@ -319,6 +329,18 @@ public class VentanaPrincipal extends JFrame
 				 
 			}
 		});	
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		MenuGlue menu = new MenuGlue();
+		add(menu.createMenuBar(),BorderLayout.NORTH);
+		add(ventana,BorderLayout.SOUTH);	
+		setResizable(false);
+		setTitle("Tenis");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1327, 247);
+		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
+		
 	}
 	
 	private void actualizarPartido(ArrayList<String[]> puntajes)
